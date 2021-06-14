@@ -50,7 +50,8 @@ function uAjaxWithResponse(method = 'GET', path = '', async = true, data = null,
     })
   }
 
-let ajaxButton = document.querySelector('.js-ajax-button');
+let ajaxButton = document.querySelector('.js-ajax-button'),
+  usersWrapper = document.querySelector('.js-users');
 
 ajaxButton.addEventListener('click', ev => {
     let path = "https://reqres.in/api/users?page=2";
@@ -63,7 +64,20 @@ ajaxButton.addEventListener('click', ev => {
 })
 
 function renderResponse(data) {
-  data.forEach(element => {
-    console.log(element.id);
+  data.forEach(user => {
+    console.log(user);
+    let userElement = document.createElement('div');
+    userElement.className = 'user';
+    userElement.id = 'user-'+user.id;
+
+    let userHeading = document.createElement('h3');
+    userHeading.innerText = user.first_name + ' ' + user.last_name;
+    userElement.appendChild(userHeading);
+
+    let userEmail = document.createElement('p');
+    userEmail.innerText = user.email;
+    userElement.appendChild(userEmail);
+    
+    usersWrapper.appendChild(userElement);
   });
 }
