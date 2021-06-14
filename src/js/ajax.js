@@ -79,5 +79,6 @@ function renderResponse(data) {
     userElement.appendChild(userEmail);
     
     usersWrapper.appendChild(userElement);
+    usersWrapper.classList.add('is-active');
   });
 }
