@@ -51,21 +51,25 @@ function uAjaxWithResponse(method = 'GET', path = '', async = true, data = null,
   }
 
 let ajaxButton = document.querySelector('.js-ajax-button'),
-  usersWrapper = document.querySelector('.js-users');
+  usersWrapper = document.querySelector('.js-users'),
+  usersTemplateWrapper = document.querySelector('.js-templating-users'),
+  usersTemplate = document.getElementById('user-template');
 
 ajaxButton.addEventListener('click', ev => {
+    // Loading State Needed
+    // Clear out old data incase needs to be treated as new filters were choosen
     let path = "https://reqres.in/api/users?page=2";
     uAjaxWithResponse("GET", path)
     .then(response => {
         let parseJSONData = JSON.parse(response),
         data = parseJSONData.data;
-        renderResponse(data);
+        renderCreateElementResponse(data);
+        renderTemplateResponse(data);
     })
 })
 
-function renderResponse(data) {
+function renderCreateElementResponse(data) {
   data.forEach(user => {
-    console.log(user);
     let userElement = document.createElement('div');
     userElement.className = 'user';
     userElement.id = 'user-'+user.id;
@@ -81,4 +85,18 @@ function renderResponse(data) {
     usersWrapper.appendChild(userElement);
     usersWrapper.classList.add('is-active');
   });
+}
+
+function renderTemplateResponse(data){
+  let usersHTML = ''
+  data.forEach(user => {
+    //usersTemplateWrapper
+    usersHTML += usersTemplate.innerHTML
+      .replace(/{{id}}/g, user.id)
+      .replace(/{{name}}/g, user.first_name + ' ' + user.last_name)
+      .replace(/{{email}}/g, user.email);
+  })
+
+  usersTemplateWrapper.innerHTML = usersHTML;
+  usersTemplateWrapper.parentElement.classList.add('is-active');
 }

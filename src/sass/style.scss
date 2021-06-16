@@ -6,3 +6,9 @@ body {
     color: black;
 }
 
+.usersWrapper {
+    display: none;
+    &.is-active {
+        display: block;
+    }
+}
