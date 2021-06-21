@@ -61,6 +61,9 @@ ajaxButton.addEventListener('click', ev => {
     ajaxButton.setAttribute('aria-disabled', true);
 
     // Clear out old data incase needs to be treated as new filters were choosen
+    usersWrapper.textContent = '';
+    usersTemplateWrapper.innerHTML = '';
+
     let path = "https://reqres.in/api/users?page=2";
     uAjaxWithResponse("GET", path)
     .then(response => {
@@ -88,7 +91,7 @@ function renderCreateElementResponse(data) {
     userElement.appendChild(userEmail);
     
     usersWrapper.appendChild(userElement);
-    usersWrapper.classList.add('is-active');
+    usersWrapper.parentElement.classList.add('is-active');
   });
 }
 
