@@ -12,3 +12,73 @@ body {
         display: block;
     }
 }
+
+.button {
+    position: relative;
+}
+
+.button-text {
+    .is-loading & {
+        opacity: 0;
+    }
+}
+
+
+.loading-state {
+    display: none;
+
+    .is-loading & {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: #809eff;
+        color: #809eff;
+        animation: dotFlashing 1s infinite linear alternate;
+        animation-delay: .5s;
+
+        &:before, &:after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 0;
+        }
+
+        &:before {
+            left: -15px;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #809eff;
+            color: #809eff;
+            animation: dotFlashing 1s infinite alternate;
+            animation-delay: 0s;
+        }
+
+        &:after {
+            left: 15px;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #809eff;
+            color: #809eff;
+            animation: dotFlashing 1s infinite alternate;
+            animation-delay: 1s;
+        }
+    }
+}
+  
+@keyframes dotFlashing {
+    0% {
+      background-color: #809eff;
+    }
+    50%,
+    100% {
+      background-color: #e6e6ff;
+    }
+}

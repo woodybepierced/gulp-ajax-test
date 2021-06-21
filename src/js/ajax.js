@@ -57,6 +57,9 @@ let ajaxButton = document.querySelector('.js-ajax-button'),
 
 ajaxButton.addEventListener('click', ev => {
     // Loading State Needed
+    ajaxButton.classList.add('is-loading');
+    ajaxButton.setAttribute('aria-disabled', true);
+
     // Clear out old data incase needs to be treated as new filters were choosen
     let path = "https://reqres.in/api/users?page=2";
     uAjaxWithResponse("GET", path)
@@ -65,6 +68,8 @@ ajaxButton.addEventListener('click', ev => {
         data = parseJSONData.data;
         renderCreateElementResponse(data);
         renderTemplateResponse(data);
+        ajaxButton.classList.remove('is-loading');
+        ajaxButton.setAttribute('aria-disabled', false);
     })
 })
 
